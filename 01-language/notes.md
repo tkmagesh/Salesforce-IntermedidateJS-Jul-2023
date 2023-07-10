@@ -214,3 +214,46 @@ greeter()
                 console.log('result : ', x + y)
             })(100,200)
         ```
+- Using the "new" keyword (Constructor Functions)
+    - Constructor Functions are NOT syntactically any different from other functions
+    - Invoked using the "new" keyword
+        - this -> new object
+        - this -> returned by default
+    - Convention : Constructor Function names must start with an uppercase
+    - Example
+        ```
+            function Employee(id, name, city){
+                // this -> new object
+                this['id'] = id;
+                this['name'] = name;
+                this['city'] = city;
+                // this -> returned by default
+            }
+            
+            var emp = new Employee(100, 'Magesh','Bangalore')
+        ```
+        ```
+            function Employee(id, name, city){
+                if (!(this instanceof Employee)){
+                    return new Employee(id, name, city)
+                }
+                // this -> new object
+                this['id'] = id;
+                this['name'] = name;
+                this['city'] = city;
+                // this -> returned by default
+            }
+        ```
+        ```
+            function Employee(id, name, city){
+                if (!(this instanceof Employee)){
+                    return JSON.stringify({id : id, name : name, city : city})
+                }
+                // this -> new object
+                this['id'] = id;
+                this['name'] = name;
+                this['city'] = city;
+                // this -> returned by default
+            }
+        ```
+    
