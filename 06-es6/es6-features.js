@@ -9,6 +9,9 @@ ES6 features
 6. object destructuring
 7. rest operator (object)
 8. spread operator (object)
+9. default arguments
+10. arrow functions
+11. template strings
 */
 
 // array destructuring
@@ -47,3 +50,41 @@ let emp = {
     city : 'Bangalore'
 }
 let newEmp = { ...emp, city : 'Washington', org : 'Salesforce' } 
+
+// 9. default arguments
+function add(x = 10,y = 20){
+    return x + y
+}
+
+add()
+
+add(100)
+
+add(undefined, 200)
+
+add(100,200)
+
+// 10. arrow functions
+/*
+//function statement
+function add(x,y){
+    return x + y;
+}
+
+//function expression
+let add = function(x,y){
+    return x + y;
+}
+
+//arrow function
+let add = (x,y) => {
+    return x + y;
+}
+*/
+let add = (x,y) => x + y;
+
+// 11. template strings
+let x = 100, y = 200
+//sum of 100 and 200 is 300
+let s1 = 'sum of ' + x + ' and ' + y + ' is ' + (x+y)
+let s2 = `sum of ${x} and ${y} is ${x+y}`
