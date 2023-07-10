@@ -202,3 +202,15 @@ greeter()
             greet.apply(person, ['Mr.', 'Have a nice day!'])
             
         ```
+- As an "Immediately Invoked Function Expression"
+    - Example
+        ```
+            (function fn(){
+                console.log('fn invoked');
+            })()
+
+            
+            (function add(x,y){
+                console.log('result : ', x + y)
+            })(100,200)
+        ```
