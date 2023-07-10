@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Intro</title>
+    
+</head>
+<body>
+    <h1 id="heading-1">Welcome to JS!</h1>
+    <div>
+        <label for="">New Heading :</label>
+        <input type="text" name="" id="txtNewHeading">
+    </div>
+    <button id="btnChangeHeading" onclick="changeHeading()">Change Heading</button>
+    <script>
+        function changeHeading(){
+            var txtbox = document.getElementById('txtNewHeading')
+            var newHeading = txtbox.value
+            var head1 = document.getElementById('heading-1')
+            head1.textContent = newHeading
+        }
+    </script>
+</body>
+</html>
