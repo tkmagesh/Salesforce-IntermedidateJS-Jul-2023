@@ -97,3 +97,108 @@ var greeter = getGreeter()
 
 greeter()
 ```
+
+# Invocation Context (this) #
+
+- It does not matter **where** the function is OR **who** owns the function. 
+- What matters is **how** the function is **invoked**.
+
+## Function invocation patterns (6 ways) ##
+- As a method of an object (obj)
+    ```
+        this -> obj
+    ```
+    - Example:
+        ```
+            var person = {
+                name : 'Magesh'
+            }
+            
+            function whoAmI(){
+                console.log('I am ', this.name)
+            }
+            
+            person['whoAmI'] = whoAmI
+            
+            person.whoAmI()
+        ```
+    - Example-2
+        ```
+            var person = {
+                name : 'Magesh'
+            }
+            
+            function greet(salutation, msg){
+                console.log(salutation + this.name + ', ' + msg)
+            }
+            
+            //Mr.Magesh, Have a nice day!
+            //salutation -> 'Mr.'
+            //msg -> 'Have a nice day!'
+            //this.name -> person.name // this -> person
+
+            person['greet'] = greet;
+            person.greet('Mr.', 'Have a nice day!')
+        ```
+- As a function
+    ```
+        this -> global scope (window in the browser)
+    ```
+    - Example
+        ```
+            window.name = 'Chrome Browser'
+            whoAmI()
+        ```
+- Using the "call" method of the function
+    - Example-1
+        ```
+            var person = {
+                name : 'Magesh'
+            }
+            
+            function whoAmI(){
+                console.log('I am ', this.name)
+            }
+            
+            whoAmI.call(person)
+        ```
+    - Example-2
+        ```
+            var person = {
+                name : 'Magesh'
+            }
+            
+            function greet(salutation, msg){
+                console.log(salutation + this.name + ', ' + msg)
+            }
+            
+            greet.call(person, 'Mr.', 'Have a nice day!')
+            
+        ```
+
+- Using the "apply" method of the function
+    - Example
+        ```
+            var person = {
+                name : 'Magesh'
+            }
+            
+            function whoAmI(){
+                console.log('I am ', this.name)
+            }
+            
+            whoAmI.call(person)
+        ```
+    - Example-2
+        ```
+            var person = {
+                name : 'Magesh'
+            }
+            
+            function greet(salutation, msg){
+                console.log(salutation + this.name + ', ' + msg)
+            }
+            
+            greet.apply(person, ['Mr.', 'Have a nice day!'])
+            
+        ```
