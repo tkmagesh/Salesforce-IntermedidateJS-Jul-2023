@@ -33,23 +33,81 @@ useCase("Initial List", () => {
 useCase("Sorting", () => {
     useCase("Default sort - products by id", () => {
         function sortProductsById(){
-            /* fill in the blanks */
+            for (let i = 0; i < products.length-1; i++) {
+                for (let j = i+1; j < products.length; j++) {
+                    if(products[i].id > products[j].id){
+                        [products[i], products[j]] = [products[j], products[i]]
+                    }
+                }
+            }
         }
         sortProductsById()
         console.table(products)
     })
 
-    useCase("Any list by any attribute", () => {
-        function sort(/*  */){
-            /* fill in the blanks */
+    function sort(list, by){
+        let comparer;
+        if (!(typeof by === "function" || typeof by === 'string')) return;
+        if (typeof by === "function") comparer = by;
+        if (typeof by === "string") {
+            comparer = function(item1, item2){
+                if (item1[by] < item2[by]) return -1;
+                if (item1[by] > item2[by]) return 1;
+                return 0
+            }
         }
+        for (let i = 0; i < list.length-1; i++) {
+            for (let j = i+1; j < list.length; j++) {
+                if(comparer(list[i], list[j]) > 0){
+                    [list[i], list[j]] = [list[j], list[i]]
+                }
+            }
+        }
+    }
+    useCase("Any list by any attribute", () => {
+        /* 
+        function sort(list, attrName){
+            for (let i = 0; i < list.length-1; i++) {
+                for (let j = i+1; j < list.length; j++) {
+                    if(list[i][attrName] > list[j][attrName]){
+                        [list[i], list[j]] = [list[j], list[i]]
+                    }
+                }
+            }
+        } 
+        */
         useCase("Products by cost", () => {
-            sort(/* .... */) // products by cost
+            sort(products, "cost") // products by cost
             console.table(products)
         })
 
         useCase("Products by units", () => {
-            sort(/* .... */) // products by units
+            sort(products, "units") // products by units
+            console.table(products)
+        })
+    })
+
+    useCase("Any list by any comparer", () => {
+        /* 
+        function sort(list, comparerFn){
+            for (let i = 0; i < list.length-1; i++) {
+                for (let j = i+1; j < list.length; j++) {
+                    if(comparerFn(list[i], list[j]) > 0){
+                        [list[i], list[j]] = [list[j], list[i]]
+                    }
+                }
+            }
+        } 
+        */
+        useCase("Products by value [cost * units]", () => {
+            let productsComparerByValue = function(p1, p2){
+                let p1Value = p1.cost * p1.units,
+                    p2Value = p2.cost * p2.units;
+                if (p1Value < p2Value) return -1;
+                if (p1Value === p2.p2Value) return 0;
+                return 1;
+            }
+            sort(products, productsComparerByValue)
             console.table(products)
         })
     })
