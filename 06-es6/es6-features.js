@@ -12,6 +12,8 @@ ES6 features
 9. default arguments
 10. arrow functions
 11. template strings
+12. iterators (for..of)
+13. classes
 */
 
 // array destructuring
@@ -24,7 +26,9 @@ let [x, y, ...z] = nos
 
 //spread operator (array)
 let nos = [3,1,4,2,5]
+// let newNos = [ nos[0], nos[1], nos[2], nos[3], nos[4], 10, 20, 30 ]
 let newNos = [ ...nos, 10, 20, 30 ]
+
 
 //6. object destructuring
 var emp = {
@@ -49,6 +53,7 @@ let emp = {
     name : 'Magesh',
     city : 'Bangalore'
 }
+// let newEmp = { id : emp.id, name : emp.name, city : emp.city, city : 'Washington', org : 'Salesforce' }
 let newEmp = { ...emp, city : 'Washington', org : 'Salesforce' } 
 
 // 9. default arguments
@@ -88,3 +93,65 @@ let x = 100, y = 200
 //sum of 100 and 200 is 300
 let s1 = 'sum of ' + x + ' and ' + y + ' is ' + (x+y)
 let s2 = `sum of ${x} and ${y} is ${x+y}`
+
+// 12. iterators (for..of)
+let nos = [3,1,4,2,5]
+for (let no of nos){
+    console.log(no)
+}
+
+// NOT an ES6 features
+// for..in
+let emp = {
+    id : 100,
+    name : 'Magesh',
+    city : 'Bangalore'
+}
+for (let key in emp){
+    console.log(`${key} - ${emp[key]}`)
+}
+
+// 13. classes
+class Employee {
+    //class level attributes
+
+    //SUPPOSED to be private
+    #id = 0;
+
+    //public attributes
+    name = '';
+    city = '';
+
+    //static attribute
+    static type = 'App.Employee'
+
+    //static method
+    static print(){
+        console.log('Employee class')
+    }
+
+    //setter & getter accessors
+    get id(){
+        console.log('get id triggered')
+        return this.#id
+    }
+    set id(id){
+        console.log('set id triggered')
+        if (id < 0) {
+            throw new Error('id cannot be negative')
+        }
+        this.#id = id;
+    }
+
+    //constructor method
+    constructor(id, name, city){
+        this.id = id; //trigger "set id()"
+        this.name = name;
+        this.city = city;
+    }
+
+    //instance level methods
+    display(){
+        console.log(`id : ${this.id} , name : ${this.name} , city : ${this.city}`)
+    }
+}
