@@ -14,6 +14,29 @@
 
     window['addSyncClient'] = addSyncClient;
 
+    //Errors
+    function divideSync(x,y){
+        console.log(`   [@Service] processing ${x} and ${y}`)
+        if ( y === 0){
+            throw new Error("Cannot divide by zero")
+        }
+        let result = x / y;
+        console.log(`   [@Service] returning result`)
+        return result;
+    }
+
+    function divideSyncClient(){
+        try {
+            console.log("[@Client] triggering divideSync")
+            let result = divideSync(40,0)
+            console.log(`[@Client] result = ${result}`)
+        } catch(e){
+            console.log(`something went wrong: ${e.message}`)
+        }
+    }
+
+    window['divideSyncClient'] = divideSyncClient;
+
     function addAsyncCallback(x,y, callbackFn){
         console.log(`   [@Service] processing ${x} and ${y}`)
         setTimeout(function(){
@@ -31,4 +54,32 @@
     }
 
     window['addAsyncCallbackClient'] = addAsyncCallbackClient;
+
+    //Error
+    function divideAsyncCallback(x,y, callbackFn){
+        console.log(`   [@Service] processing ${x} and ${y}`)
+        setTimeout(function(){
+            if ( y === 0){
+                let e = new Error("Cannot divide by zero")
+                callbackFn(e, null)
+                return;
+            }
+            let result = x / y;
+            console.log(`   [@Service] returning result`)
+            callbackFn(null, result);
+        }, 4000)
+    }
+
+    function divideAsyncCallbackClient(){
+        console.log("[@Client] triggering divideAsync")
+        divideAsyncCallback(40,0, function(err, result){
+            if (err){
+                console.log(`[@Client] something went wrong: ${err.message}`)
+                return;
+            }
+            console.log(`[@Client] result = ${result}`)
+        })
+    }
+
+    window['divideAsyncCallbackClient'] = divideAsyncCallbackClient;
 })()
