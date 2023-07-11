@@ -3,11 +3,11 @@ function Employee(id, name, city){
     this['id'] = id;
     this['name'] = name;
     this['city'] = city;
-
-    this['print'] = function(){
-        return this['id'] + ' ' + this['name'] + ' ' + this['city']
-    }
     // this -> returned by default
+}
+
+Employee.prototype['print'] = function(){
+    return this['id'] + ' ' + this['name'] + ' ' + this['city']
 }
 
 var emp = new Employee(100, 'Magesh','Bangalore')
