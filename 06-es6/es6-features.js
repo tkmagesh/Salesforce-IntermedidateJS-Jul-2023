@@ -152,6 +152,23 @@ class Employee {
 
     //instance level methods
     display(){
-        console.log(`id : ${this.id} , name : ${this.name} , city : ${this.city}`)
+        return `id : ${this.id} , name : ${this.name} , city : ${this.city}`;
+    }
+}
+
+//inheritance
+class FullTimeEmployee extends Employee {
+
+    benefits = '';
+    
+    //constructor method
+    constructor(id, name, city, benefits){
+        super(id, name, city)
+        this.benefits = benefits
+    }
+
+    //instance level methods
+    display(){
+        return `${super.display()} , benefits : ${this.benefits}`
     }
 }
