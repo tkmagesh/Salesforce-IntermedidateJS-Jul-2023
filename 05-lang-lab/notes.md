@@ -1,4 +1,14 @@
 # Language Lab #
+
+## Application setup ##
+- create a folder
+- cd into the folder
+- run the following commands
+- > npm init -y
+- > npm install jest --save-dev
+- modify the "test" script in the "package.json" file to "jest --watch" and run the following command
+- > npm test
+
 ## Test Cases ##
 - sum(10,20)  // => 30
 - sum("10", 20) // => 30
