@@ -16,7 +16,6 @@
     - functions can have state
     - functions can have behaviors
 
-
 ### Creation ###
 ```
 var obj = {}
