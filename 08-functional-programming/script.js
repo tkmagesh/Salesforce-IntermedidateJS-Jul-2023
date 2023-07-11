@@ -113,8 +113,33 @@ useCase("Sorting", () => {
     })
 })
 
-/* useCase("Filter", () => {
-    useCase("Filter by category - stationary", () => {
+ useCase("Filter", () => {
+    useCase("Filter products by category - stationary", () => {
+        function filterProductsByCategory(){
+
+        }
         console.table(products)
     })
-}) */
+    useCase("Filter any list any category", () => {
+        function filter(/*  */){
+
+        }
+        useCase("Products by cost", () => {
+            useCase("costly products [cost > 50]", () => {
+
+            })
+            useCase("affordable products", () => {
+
+            })
+        })
+
+        useCase("Product by units", () => {
+            useCase("understocked products [units < 60]", () => {
+
+            })
+            useCase("well stocked products", () => {
+                
+            })
+        })
+    })
+}) 
