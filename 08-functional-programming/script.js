@@ -115,30 +115,73 @@ useCase("Sorting", () => {
 
  useCase("Filter", () => {
     useCase("Filter products by category - stationary", () => {
-        function filterProductsByCategory(){
-
+        function filterProductsByCategory(category){
+            let result = []
+            for (let product of products){
+                if (product.category === category) 
+                    result.push(product)
+            }
+            return result
         }
-        console.table(products)
+        let stationaryProducts = filterProductsByCategory('stationary')
+        console.table(stationaryProducts)
     })
     useCase("Filter any list any category", () => {
-        function filter(/*  */){
-
+        function filter(list, predicate){
+            let result = []
+            for (let item of list){
+                if (predicate(item)) 
+                    result.push(item)
+            }
+            return result
         }
-        useCase("Products by cost", () => {
-            useCase("costly products [cost > 50]", () => {
 
+        function negate(predicate){
+            return function(...args){
+                return !predicate(...args)
+            }
+        }
+        
+        useCase("Products by cost", () => {
+            let costlyProductPredicate = function(product){
+                return product.cost > 50
+            };
+            useCase("costly products [cost > 50]", () => {
+                let costlyProducts = filter(products, costlyProductPredicate)
+                console.table(costlyProducts)
+            
             })
             useCase("affordable products", () => {
-
+                /* 
+                let affordableProductPredicate = function(product){
+                    return !costlyProductPredicate(product)
+                }; 
+                */
+                let affordableProductPredicate = negate(costlyProductPredicate)
+                let affordableProducts = filter(products, affordableProductPredicate)
+                console.table(affordableProducts)
             })
         })
 
         useCase("Product by units", () => {
+            let understockedProductPredicate = function(product){
+                return product.units < 60
+            }
             useCase("understocked products [units < 60]", () => {
-
+                let understockedProducts = filter(products, understockedProductPredicate)
+                console.table(understockedProducts)
             })
+
             useCase("well stocked products", () => {
-                
+                /* 
+                let wellStockedProductPredicate = function(product){
+                    return !understockedProductPredicate(product)
+                } 
+                */    
+                let wellStockedProductPredicate = negate(understockedProductPredicate)
+                let wellStockedProducts = filter(products, wellStockedProductPredicate)
+                console.table(wellStockedProducts)
+            
             })
         })
     })
