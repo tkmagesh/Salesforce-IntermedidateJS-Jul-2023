@@ -82,4 +82,29 @@
     }
 
     window['divideAsyncCallbackClient'] = divideAsyncCallbackClient;
+
+
+    // promise
+    function addAsyncPromise(x,y){
+        console.log(`   [@Service] processing ${x} and ${y}`)
+        let p = new Promise(function(resolveFn, rejectFn){
+            setTimeout(function(){
+                let result = x + y;
+                console.log(`   [@Service] returning result`)
+                resolveFn(result);
+            }, 4000)
+        })
+        return p;
+    }
+
+    /* 
+        //client code
+        console.log("[@Client] triggering addAsyncPromise")
+        let p = addAsyncPromise(100,200)
+        // p.then(fn), p.catch(fn) 
+        p.then(function(result){
+            console.log(`[@Client] result = ${result}`)
+        })
+    */
+    window['addAsyncPromise'] = addAsyncPromise;
 })()
