@@ -108,3 +108,71 @@
     */
     window['addAsyncPromise'] = addAsyncPromise;
 })()
+
+/* 
+//Promise Chaining
+// Follow up - async operation - 1
+function multiply(n1, n2){
+    return new Promise(function(resolveFn, rejectFn){
+        setTimeout(function(){
+            resolveFn(n1 * n2);
+        },5000)
+    })
+}
+
+console.log("[@Client] triggering addAsyncPromise")
+let p = addAsyncPromise(100,200)
+// p.then(fn), p.catch(fn) 
+let p2 = p.then(function(result){
+    console.log(`[@Client] result = ${result}`)
+    let p2 = multiply(result, 2);
+    return p2;
+});
+p2.then(function(doubleResult){
+    console.log(`doubleResult = ${doubleResult}`);
+})
+
+
+// Follow up - sync operation - 1
+console.log("[@Client] triggering addAsyncPromise")
+let p = addAsyncPromise(100,200)
+// p.then(fn), p.catch(fn) 
+let p2 = p.then(function(result){
+    console.log(`[@Client] result = ${result}`)
+    const doubleResult = result * 2;
+    return new Promise(function(resolveFn, rejectFn){
+        resolveFn(doubleResult);
+    })
+});
+p2.then(function(doubleResult){
+    console.log(`doubleResult = ${doubleResult}`);
+})
+
+
+// Follow up - sync operation - 2
+console.log("[@Client] triggering addAsyncPromise")
+let p = addAsyncPromise(100,200)
+// p.then(fn), p.catch(fn) 
+let p2 = p.then(function(result){
+    console.log(`[@Client] result = ${result}`)
+    const doubleResult = result * 2;
+    return Promise.resolve(doubleResult)
+});
+p2.then(function(doubleResult){
+    console.log(`doubleResult = ${doubleResult}`);
+})
+
+// Follow up - sync operation - 3
+console.log("[@Client] triggering addAsyncPromise")
+let p = addAsyncPromise(100,200)
+// p.then(fn), p.catch(fn) 
+let p2 = p.then(function(result){
+    console.log(`[@Client] result = ${result}`)
+    const doubleResult = result * 2;
+    return doubleResult;
+});
+p2.then(function(doubleResult){
+    console.log(`doubleResult = ${doubleResult}`);
+})
+
+*/
