@@ -97,17 +97,54 @@
         return p;
     }
 
+    /* 
     function addAsyncPromiseClient(){
-        
         console.log("[@Client] triggering addAsyncPromise")
         let p = addAsyncPromise(100,200)
         // p.then(fn), p.catch(fn) 
         p.then(function(result){
             console.log(`[@Client] result = ${result}`)
         })
+    } 
+    */
+
+    //async await
+    async function addAsyncPromiseClient(){
+        console.log("[@Client] triggering addAsyncPromise")
+        let result = await addAsyncPromise(100,200)
+        console.log(`[@Client] result = ${result}`)
+        return result * 2
+        // a promise is returned by default
     }
    
     window['addAsyncPromiseClient'] = addAsyncPromiseClient;
+
+    //Parallel execution
+    async function asyncAwaitClient(){
+        /* 
+        const addResult = await addAsyncPromise(100,200)
+        const divideResult = await divideAsyncPromise(100,2)
+        console.log(`addResult = ${addResult}`)
+        console.log(`divideResult = ${divideResult}`) 
+        */
+
+        const addPromise = addAsyncPromise(100,200)
+        const dividePromise = divideAsyncPromise(100,2)
+        /* 
+        Promise.all([addPromise, dividePromise])
+            .then(function([addResult, divideResult]){
+                console.log(`addResult = ${addResult}`)
+                console.log(`divideResult = ${divideResult}`) 
+            }) 
+        */
+       const [addResult, divideResult] = await Promise.all([addPromise, dividePromise])
+       console.log(`addResult = ${addResult}`)
+       console.log(`divideResult = ${divideResult}`)
+    }
+    
+    window['asyncAwaitClient'] = asyncAwaitClient;
+    
+    
 
     // async (promise) - ERROR
     function divideAsyncPromise(x,y){
