@@ -185,6 +185,7 @@
     } 
     */
 
+    //handling errors (using async await)
     async function divideAsyncPromiseClient(){
         try {
             console.log("[@Client] triggering divideAsync")
