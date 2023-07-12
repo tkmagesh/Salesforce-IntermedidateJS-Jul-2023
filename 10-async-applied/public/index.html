@@ -24,37 +24,57 @@
     </style>
     <script>
         /*
-            
-            let p = axios.get('http://localhost:3000/bugs');
-            let p2 = p.then(function(response){
-                console.log('respose :', response);
-                return response.data;
-            })
-            p2.then(function(bugs){
-                console.table(bugs);
-            })
-
-            //using async await
-            const response = await axios.get('http://localhost:3000/bugs');
-            console.log('respose :', response);
-            const bugs = response.data
-            console.table(bugs)
-
-
-            const bugsList = document.getElementById('bugsList')
-            
-            //creating a new 'li' element
-            const bugItem = document.createElement('li');
-            bugItem.textContent = 'Bug - 1'
-            bugsList.append(bugItem)
+            //creating a new bug - reference
+            const newBugData = {
+                id : 0,
+                name : 'Test Bug - 2',
+                isClosed : false,
+                createdAt : new Date()
+            }
+            axios.post('http://localhost:3000/bugs', newBugData)
+                .then(response => {
+                    console.log(response.data)  
+                })
         */
+        //Server communication
+        const bugApi = (() => {
+            async function getAllBugs() {
+                const response = await axios.get('http://localhost:3000/bugs');
+                const bugs = response.data
+                return bugs;
+            }
+            return {
+                getAllBugs
+            };
+        })();
+        
+
+        //UI
+        (function(){
+            async function loadBugs(){
+                const bugsList = document.getElementById('bugsList')
+                const bugs = await bugApi.getAllBugs();
+                bugs.forEach(function(bug){
+                    const bugItem = document.createElement('li');
+                    bugItem.textContent = bug.name
+                    bugsList.append(bugItem)
+                })
+            }
+
+            function onDocumentLoad(){
+                loadBugs()
+            }
+            window.addEventListener('load', onDocumentLoad)
+        })();
     </script>
 </head>
 <body>
     <h1>Bug Tracker</h1>
     <hr>
     <h3>Bugs</h3>
-    <button id="btnLoadBugs">Load Bugs</button>
+    <label for="">Bug Name :</label>
+    <input type="text" name="" id="txtNewBugName">
+    <button id="btnAddNew">Add New</button>
     <ul id="bugsList">
 
     </ul>
