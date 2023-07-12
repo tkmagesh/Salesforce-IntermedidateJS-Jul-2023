@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Workers</title>
+    <script>
+        (() => {
+            let divMessages, workProgress;
+            let startTime, endTime;
+
+            function doWork(onProgress, onComplete) {
+                let totalIterations = 1000,
+                    currentIteration = 0;
+
+                function oneIteration(){
+                    for (let i = 1; i <= (10000/totalIterations); i++) {
+                        for (let j = 0; j < 5000; j++)
+                            for (let k = 0; k < 1000; k++) {
+
+                            }
+                    }
+                    currentIteration++;
+                    if (currentIteration % 10 === 0) {
+                        const percentCompleted = (currentIteration / 1000) * 100
+                        onProgress(percentCompleted)
+                    }
+                    if (currentIteration < totalIterations){
+                        setTimeout(oneIteration)
+                    } else {
+                        onComplete()
+                    }
+                }
+
+                setTimeout(oneIteration)
+
+            }
+            
+            function displayMessage(msg){
+                divMessages.innerHTML += msg + '<br/>'
+            }
+
+            function onBtnDoWorkClick(){
+                displayMessage("Work Started...")
+                startTime = new Date()
+                doWork(onWorkProgress, onWorkComplete)
+            }
+            function onWorkProgress(percentCompleted){
+                workProgress.value = percentCompleted;
+            }
+
+            function onWorkComplete(){
+                endTime = new Date()
+                let elapsed = endTime - startTime
+                console.log(elapsed)
+                displayMessage('Work Completed')
+            }
+
+            function onDocumentLoad(){
+                divMessages = document.getElementById('divMessages');
+                workProgress = document.getElementById('workProgress');
+
+                var btnDoWork = document.getElementById('btnDoWork');
+                btnDoWork.addEventListener('click', onBtnDoWorkClick)
+            }
+            window.addEventListener('load', onDocumentLoad)
+        })()
+    </script>
+</head>
+<body>
+    <h1>CPU intensive operation - using Event Loop</h1>
+    <input type="text" name="" id="">
+    <button id="btnDoWork">Do Work</button>
+    <div>
+        <progress id="workProgress" min="0" max="100" value="0"></progress>
+    </div>
+    <div id="divMessages"></div>
+</body>
+</html>

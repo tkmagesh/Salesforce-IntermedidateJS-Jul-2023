@@ -7,11 +7,14 @@
     <script>
         (() => {
             let divMessages, workProgress;
+            let startTime, endTime;
 
             let worker = new Worker('./app-work.js')
 
             worker.addEventListener('message', function(evt){
                 if (evt.data.type === 'done'){
+                    endTime = new Date()
+                    console.log(endTime - startTime)
                     displayMessage("Work Completed!")
                 } else if (evt.data.type === 'progress'){
                     workProgress.value = evt.data.percentCompleted;
@@ -25,6 +28,7 @@
             }
 
             function onBtnDoWorkClick(){
+                startTime = new Date()
                 worker.postMessage({type : 'start'})
                 displayMessage("Work Started...")
             }
@@ -40,6 +44,7 @@
     </script>
 </head>
 <body>
+    <h1>CPU intensive operation - using Web Workers</h1>
     <input type="text" name="" id="">
     <button id="btnDoWork">Do Work</button>
     <div>
