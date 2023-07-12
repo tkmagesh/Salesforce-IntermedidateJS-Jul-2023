@@ -22,98 +22,11 @@
             background-color: #e7e7e7;
         }
     </style>
-    <script>
-        /*
-            //creating a new bug - reference
-            const newBugData = {
-                id : 0,
-                name : 'Test Bug - 2',
-                isClosed : false,
-                createdAt : new Date()
-            }
-            axios.post('http://localhost:3000/bugs', newBugData)
-                .then(response => {
-                    console.log(response.data)  
-                })
-        */
-        //Server communication
-        const bugApi = (() => {
-            async function getAllBugs() {
-                const response = await axios.get('http://localhost:3000/bugs');
-                const bugs = response.data
-                return bugs;
-            }
-            async function saveBug(bugData){
-                const response = await axios.post('http://localhost:3000/bugs', bugData)
-                const newBug = response.data
-                return newBug
-            }
-            return {
-                getAllBugs,
-                saveBug
-            };
-        })();
-        
-        const bugService = (() => {
-            function getAllBugs() {
-                return bugApi.getAllBugs()
-            }
-            function saveBug(newBugName){
-                 const newBugData = {
-                    id: 0,
-                    name: newBugName,
-                    isClosed: false,
-                    createdAt: new Date()
-                };
-                return bugApi.saveBug(newBugData);
-            }
-            return {
-                getAllBugs,
-                saveBug
-            }
-        })();
-
-        //UI
-        (function(){
-            let btnAddNew, txtNewBugName, bugsList;
-
-            function createBugItem(bug){
-                const bugItem = document.createElement('li');
-                bugItem.textContent = bug.name
-                return bugItem;
-            }
-
-            function appendBugItem(bugItem){
-                bugList.appendChild(bugItem)
-            }
-
-            async function loadBugs(){
-                
-                const bugs = await bugService.getAllBugs();
-                /*
-                    bugs
-                        .map(bug => createBugItem(bug))
-                        .forEach(bugItem => appendBugItem(bugItem))
-                */
-                bugs.map(createBugItem).forEach(appendBugItem)
-            }
-
-            async function onBtnAddNewClick(){
-                const newBugName = txtNewBugName.value
-                const newBug = await bugService.saveBug(newBugName)
-                appendBugItem(createBugItem(newBug))
-            }
-
-            function onDocumentLoad(){
-                btnAddNew = document.getElementById('btnAddNew');
-                btnAddNew.addEventListener('click', onBtnAddNewClick)
-                txtNewBugName = document.getElementById('txtNewBugName')
-                bugList = document.getElementById('bugsList')
-                loadBugs()
-            }
-            window.addEventListener('load', onDocumentLoad)
-        })();
-    </script>
+    <script src="index.js"></script>
+    <script src="bugService.js"></script>
+    <script src="bugApi.js"></script>
+    
+    
 </head>
 <body>
     <h1>Bug Tracker</h1>
