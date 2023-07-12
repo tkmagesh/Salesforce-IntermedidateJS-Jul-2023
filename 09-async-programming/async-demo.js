@@ -163,6 +163,7 @@
         
     }
 
+    /* 
     function divideAsyncPromiseClient(){
         console.log("[@Client] triggering divideAsync")
         const p = divideAsyncPromise(40,0)
@@ -172,15 +173,26 @@
         p.catch(function(err){
             console.log(`[@Client] something went wrong: ${err.message}`)
         });
-        /* 
-        divideAsyncPromise(40,0)
-            .then(function(result){
-                console.log(`[@Client] result = ${result}`)
-            })
-            .catch(function(err){
-                console.log(`[@Client] something went wrong: ${err.message}`)
-            }); 
-        */
+        
+        // divideAsyncPromise(40,0)
+        //     .then(function(result){
+        //         console.log(`[@Client] result = ${result}`)
+        //     })
+        //     .catch(function(err){
+        //         console.log(`[@Client] something went wrong: ${err.message}`)
+        //     }); 
+        
+    } 
+    */
+
+    async function divideAsyncPromiseClient(){
+        try {
+            console.log("[@Client] triggering divideAsync")
+            const result = await divideAsyncPromise(40,0)
+            console.log(`[@Client] result = ${result}`)
+        } catch (err) {
+            console.log(`[@Client] something went wrong: ${err.message}`)
+        }   
     }
     window['divideAsyncPromiseClient'] = divideAsyncPromiseClient;
 })()
