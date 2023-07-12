@@ -21,3 +21,4 @@
 "build" : "webpack"
 ```
 - create the webpack.config.js file
+- >npm install babel-loader clean-webpack-plugin html-webpack-plugin webpack-dev-server css-loader styles-loader
