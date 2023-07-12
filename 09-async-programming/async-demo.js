@@ -135,6 +135,9 @@
             .then(function([addResult, divideResult]){
                 console.log(`addResult = ${addResult}`)
                 console.log(`divideResult = ${divideResult}`) 
+            })
+            .catch(function(err){
+                
             }) 
         */
        const [addResult, divideResult] = await Promise.all([addPromise, dividePromise])

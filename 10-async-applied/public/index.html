@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Applied</title>
+    <script src="axios.min.js"></script>
+    <style>
+        body {
+            margin-left: 50px;
+        }
+        ul {
+            width : 500px;
+            list-style: none;
+            -webkit-padding-start: 0px;
+        }
+        li {
+            margin-bottom: 10px;
+            padding : 10px;
+            border : 1px solid gray;
+            border-radius: 5px;
+            background-color: #e7e7e7;
+        }
+    </style>
+    <script>
+        /*
+            
+            let p = axios.get('http://localhost:3000/bugs');
+            let p2 = p.then(function(response){
+                console.log('respose :', response);
+                return response.data;
+            })
+            p2.then(function(bugs){
+                console.table(bugs);
+            })
+
+            //using async await
+            const response = await axios.get('http://localhost:3000/bugs');
+            console.log('respose :', response);
+            const bugs = response.data
+            console.table(bugs)
+
+
+            const bugsList = document.getElementById('bugsList')
+            
+            //creating a new 'li' element
+            const bugItem = document.createElement('li');
+            bugItem.textContent = 'Bug - 1'
+            bugsList.append(bugItem)
+        */
+    </script>
+</head>
+<body>
+    <h1>Bug Tracker</h1>
+    <hr>
+    <h3>Bugs</h3>
+    <button id="btnLoadBugs">Load Bugs</button>
+    <ul id="bugsList">
+
+    </ul>
+</body>
+</html>

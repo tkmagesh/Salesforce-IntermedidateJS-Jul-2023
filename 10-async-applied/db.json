@@ -1,0 +1,44 @@
+{
+  "bugs": [
+    {
+      "id": 2,
+      "name": "User access denied",
+      "isClosed": false,
+      "createdAt": "2022-10-09T09:19:26.660Z"
+    },
+    {
+      "id": 3,
+      "name": "Application not responding",
+      "isClosed": false,
+      "createdAt": "2022-10-09T09:19:29.087Z"
+    },
+    {
+      "id": 4,
+      "name": "Data integrity checks failed",
+      "isClosed": false,
+      "createdAt": "2022-10-09T09:19:33.517Z"
+    },
+    {
+      "id": 5,
+      "name": "Test Bug",
+      "isClosed": false,
+      "createdAt": "2023-02-16T11:59:24.979Z"
+    },
+    {
+      "id": 6,
+      "name": "Server communication failure",
+      "isClosed": false,
+      "createdAt": "2023-05-03T19:40:19.245Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "Bug Tracker"
+    },
+    {
+      "id": 3,
+      "name": "Time Tracker"
+    }
+  ]
+}
