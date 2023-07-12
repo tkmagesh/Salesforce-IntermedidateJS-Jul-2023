@@ -97,17 +97,58 @@
         return p;
     }
 
-    /* 
-        //client code
+    function addAsyncPromiseClient(){
+        
         console.log("[@Client] triggering addAsyncPromise")
         let p = addAsyncPromise(100,200)
         // p.then(fn), p.catch(fn) 
         p.then(function(result){
             console.log(`[@Client] result = ${result}`)
         })
-    */
-    window['addAsyncPromise'] = addAsyncPromise;
+    }
+   
+    window['addAsyncPromiseClient'] = addAsyncPromiseClient;
+
+    // async (promise) - ERROR
+    function divideAsyncPromise(x,y){
+        console.log(`   [@Service] processing ${x} and ${y}`)
+        return new Promise(function(resolveFn, rejectFn){
+            setTimeout(function(){
+                if ( y === 0){
+                    let e = new Error("Cannot divide by zero")
+                    return rejectFn(e)
+                }
+                let result = x / y;
+                console.log(`   [@Service] returning result`)
+                resolveFn(result);
+            }, 4000)
+        })
+        
+    }
+
+    function divideAsyncPromiseClient(){
+        console.log("[@Client] triggering divideAsync")
+        const p = divideAsyncPromise(40,0)
+        p.then(function(result){
+            console.log(`[@Client] result = ${result}`)
+        })
+        p.catch(function(err){
+            console.log(`[@Client] something went wrong: ${err.message}`)
+        });
+        /* 
+        divideAsyncPromise(40,0)
+            .then(function(result){
+                console.log(`[@Client] result = ${result}`)
+            })
+            .catch(function(err){
+                console.log(`[@Client] something went wrong: ${err.message}`)
+            }); 
+        */
+    }
+    window['divideAsyncPromiseClient'] = divideAsyncPromiseClient;
 })()
+
+
 
 /* 
 //Promise Chaining
